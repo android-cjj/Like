@@ -20,7 +20,9 @@
 * 5.爱心移动的轨迹光滑,是个曲线
 
 其实，难点就是曲线运动，作者用了三次方贝塞尔曲线的公式：
+
 ![](http://e.hiphotos.baidu.com/baike/s%3D421/sign=9a6521eab8014a90853e47bf98763971/f603918fa0ec08fad54f8dff58ee3d6d55fbda1f.jpg)
+
 P0,是爱心的起点,P3是终点,P1,P2是途径的两个点。在自定义TypeEvaluator，实现了动画曲线效果。具体你可以去看作者原文，因为他写了，我就不啰嗦了。我讲讲不够优美的地方，爱心出来移动太分散，源码中，作者提供P1,P2点时候，处理的很随意，所以这里是可以做优化的。
 ```java
    /**
@@ -122,42 +124,8 @@ hanks实现这个的思路是：
 * 3.当空心圆半径达到 MAX_RADIUS - RINGWIDTH (P2), 此时变成圆环,在圆环上生成个DOT_NUMBER个小圆,均匀分布
 * 4.空心圆继续变大,逐渐圆环消失; 同时小圆向外扩散,扩散过程小圆半径减小,颜色渐变;同时下面的view逐渐变大 (P3)
 
-从源码上看，就一个view类，SmallBang继承了View,主要是在这个`bang(...)`函数做了位置的初始化和动画的逻辑
-```java
-  public void bang(final View view, float radius, SmallBangListener listener) {
-         ......
-        Rect r = new Rect();
-        view.getGlobalVisibleRect(r);
-        int[] location = new int[2];
-        getLocationOnScreen(location);
-        r.offset(-location[0], -location[1]);
-        r.inset(-mExpandInset[0], -mExpandInset[1]);
+从源码上看，就一个view类，SmallBang继承了View,主要是在这个`bang(...)`函数做了位置的初始化和动画的逻辑,在`ondraw()`函数根据动画过程得到的progress和自己定义好的P1,P2,P3去绘制各个过程。
 
-        centerX = r.left + r.width() / 2;
-        centerY = r.top + r.height() / 2;
-
-        if (radius != -1) {
-            initRadius(radius);
-        } else {
-            initRadius(Math.max(r.width(),r.height()));
-        }
-        view.setScaleX(0.1f);
-        view.setScaleY(0.1f);
-        ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f).setDuration((long) (ANIMATE_DURATION * 0.5f));
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float animatedFraction = animation.getAnimatedFraction();
-                view.setScaleX(0.1f + animatedFraction * 0.9f);
-                view.setScaleY(0.1f + animatedFraction * 0.9f);
-            }
-        });
-        animator.setInterpolator(new OvershootInterpolator(2));
-        animator.setStartDelay((long) (ANIMATE_DURATION * P3));
-        animator.start();
-        bang();
-    }
-```
 动画效果还是挺流畅，效果也挺棒。这里说说这个库的不足的地方。
 ```java
     public static SmallBang attach2Window(Activity activity) {
@@ -169,11 +137,19 @@ hanks实现这个的思路是：
     }
 ```
 传入参数是activity，会导致如果是dialog使用，就必须改代码，这里写死了，可以优化。
-因为此效果多半在列表中使用，所以测试中效果发生的位置会有偏差，这点也需优化。
+因为此效果多半在列表中使用，所以测试中效果发生的位置会有偏差，这样是位置获取采用的方式所导致的。
+还有就是作者也做取消的效果，在里面设置个isSelect的状态，并向外提供这个状态的方法。
 
 小编采访作者为什么写这个？
 
-xxx
+[hanks](https://github.com/hanks-zyh):"使用 Twitter 的时候看到了，感觉动画很活泼，感觉实现起来也不难。"
+
+###最后说说
+看完这么多漂亮的点赞效果，我们应该是思考，为什么国外的App肯花费那么多时间去完成这个不起眼的小功能————点赞。我觉得，注重细节，注重交互。也希望做产品的同学可以看到，其实，我们程序员可以完成很多绚丽的东西，请设计的时候，不要那么单调。那些年，我们一起点过的赞可能不是很漂亮，希望，以后的赞可以真的很赞。
+
+
+
+
 
 
 
