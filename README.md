@@ -68,7 +68,7 @@ P0,是爱心的起点,P3是终点,P1,P2是途径的两个点。在自定义TypeE
 
 ![](http://frogermcs.github.io/images/22/dots_anim.gif)
 
-其实还是画圆，我们需要确定各个圆的圆心
+其实还是画圆，我们需要确定各个圆的圆心位置
 ```java
 int cX = (int) (centerX + currentRadius1 * Math.cos(i * OUTER_DOTS_POSITION_ANGLE * Math.PI / 180));
 int cY = (int) (centerY + currentRadius1 * Math.sin(i * OUTER_DOTS_POSITION_ANGLE * Math.PI / 180)); 
@@ -141,7 +141,7 @@ hanks实现这个的思路是：
 ```
 传入参数是activity，会导致如果是dialog使用，就必须改代码，这里写死了，可以优化。
 因为此效果多半在列表中使用，所以测试中效果发生的位置会有偏差，这样是位置获取采用的方式所导致的。
-还有就是作者也做取消的效果，在里面设置个isSelect的状态，并向外提供这个状态的方法。
+还有就是作者也没做取消的效果，我觉得在里面设置个isSelect的状态，并向外提供这个状态的方法。
 
 小编采访作者为什么写这个？
 
