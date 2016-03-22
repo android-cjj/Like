@@ -6,7 +6,8 @@
 
 ####介绍下我认为点赞做的比较好的App及简单介绍如何实现。
 
-###Periscope一款用户可以向其他人直播视音频的App,点赞效果让人眼前一亮。
+###Periscope
+一款用户可以向其他人直播视音频的App,点赞效果让人眼前一亮。
 
 大概在一年前，程序亦非猿就写了[一步一步教你实现Periscope点赞效果](http://www.jianshu.com/p/03fdcfd3ae9c)，我也在个人项目中用了，感觉良好。
 
@@ -45,7 +46,8 @@ P0,是爱心的起点,P3是终点,P1,P2是途径的两个点。在自定义TypeE
 [程序亦非猿](https://github.com/AlanCheen):"写了快一年了...跟风persicope啊，哈哈 , 效果帅 ,就想实现 ,如此而已"
 
 
-###Twitter（中文称：推特）是国外的一个社交网络及微博客服务的网站,App点赞效果十分漂亮
+###Twitter（中文称：推特）
+国外的一个社交网络及微博客服务的网站,App点赞效果十分漂亮
 
 我最早是看到[frogermcs/LikeAnimation](https://github.com/frogermcs/LikeAnimation)实现了，效果如下：
 
@@ -112,7 +114,8 @@ int cY = (int) (centerY + currentRadius1 * Math.sin(i * OUTER_DOTS_POSITION_ANGL
 
 [frogermcs](https://github.com/frogermcs):"Hello, Chinese friends,我瞎掰了，呵呵"
 
-###最新Twitter App 版本的点赞效果有了一点变化，还是很漂亮
+###最新Twitter App 版本
+点赞效果有了一点变化，还是很漂亮
 
 作者[hanks-zy](https://github.com/hanks-zyh)实现了这种效果[SmallBang](https://github.com/hanks-zyh/SmallBang)
 
